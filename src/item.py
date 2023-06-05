@@ -1,3 +1,5 @@
+import csv
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -9,14 +11,33 @@ class Item:
         """
         Создание экземпляра класса item.
 
-        :param name Название товара.
+        :param name: Название товара.
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-        self.name = name
+        self.__name = name
         self.price = price
         self.quantity = quantity
         self.all.append(self)
+
+    @property
+    def name(self):
+        """
+        Геттер для доступа к приватному атрибуту name.
+        """
+        return self.__name
+
+    @name.setter
+    def name(self, value):
+        """
+        Сеттер для доступа к приватному атрибуту name.
+
+        :param value: Новое значение для name.
+        """
+        if len(value) <= 10:
+            self.__name = value
+        else:
+            raise ValueError('Длина наименования товара превышает 10 символов.')
 
     def calculate_total_price(self) -> float:
         """
@@ -31,3 +52,24 @@ class Item:
         Применяет установленную скидку для конкретного товара.
         """
         self.price = self.price * self.pay_rate
+
+    @classmethod
+    def instantiate_from_csv(cls):
+        """
+        Создание экземпляров класса Item из данных файла src/items.csv.
+        """
+        with open('src/items.csv') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                item = cls(row['name'], float(row['price']), int(row['quantity']))
+                cls.all.append(item)
+
+    @staticmethod
+    def string_to_number(string) -> int:
+        """
+        Преобразует строку в число. Если число с плавающей точкой, возвращает целую часть.
+
+        :param string: Число в виде строки.
+        :return: Целое число.
+        """
+        return int(float(string))
