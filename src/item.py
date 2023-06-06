@@ -58,11 +58,11 @@ class Item:
         """
         Создание экземпляров класса Item из данных файла src/items.csv.
         """
+        cls.all = []
         with open('src/items.csv') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 item = cls(row['name'], float(row['price']), int(row['quantity']))
-                cls.all.append(item)
 
     @staticmethod
     def string_to_number(string) -> int:
