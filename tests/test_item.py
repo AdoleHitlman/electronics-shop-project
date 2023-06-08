@@ -6,6 +6,13 @@ item1 = Item("Смартфон", 10000, 20)
 Item.pay_rate = 0.8
 
 
+def test___repr__():
+    assert item1.__repr__() == "Item('Смартфон', 10000, 20)"
+
+def test___str__():
+    assert item1.__str__() == "Смартфон"
+
+
 def test_pay_rate():
     assert item1.pay_rate == 0.8
 

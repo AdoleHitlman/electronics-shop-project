@@ -19,6 +19,16 @@ class Item:
         self.price = price
         self.quantity = quantity
         self.all.append(self)
+    """
+    Магический метод __repr__
+    """
+    def __repr__(self):
+        return f"{self},({self.name}, {self.price}, {self.quantity}"
+    """
+    Магический метод __str__
+    """
+    def __str__(self):
+        return self.name
 
     @property
     def name(self):
