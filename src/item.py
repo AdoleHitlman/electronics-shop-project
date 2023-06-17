@@ -19,14 +19,26 @@ class Item:
         self.price = price
         self.quantity = quantity
         self.all.append(self)
+
+
+    def __add__(self, other):
+        if isinstance(other, Item):
+            return self.quantity + other.quantity
+        else:
+            raise ValueError("Невозможно сложить товары разных типов")
+
     """
-    Магический метод __repr__
+        Магический метод __repr__
     """
+
     def __repr__(self):
-        return f"{self},({self.name}, {self.price}, {self.quantity}"
+        return f"{self},('{self.name}', {self.price}, {self.quantity})"
+
+
     """
     Магический метод __str__
     """
+
     def __str__(self):
         return self.name
 
@@ -69,7 +81,7 @@ class Item:
         Создание экземпляров класса Item из данных файла src/items.csv.
         """
         cls.all = []
-        with open('src/items.csv') as csvfile:
+        with open('/home/hw/hw010623/electronics-shop-project/src/items.csv') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 item = cls(row['name'], float(row['price']), int(row['quantity']))

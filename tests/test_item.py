@@ -7,7 +7,8 @@ Item.pay_rate = 0.8
 
 
 def test___repr__():
-    assert item1.__repr__() == "Item('Смартфон', 10000, 20)"
+    assert item1.__repr__() == "Смартфон,('Смартфон', 10000, 20)"
+
 
 def test___str__():
     assert item1.__str__() == "Смартфон"
@@ -61,3 +62,7 @@ def test_string_to_number():
     assert Item.string_to_number('5') == 5
     assert Item.string_to_number('5.0') == 5
     assert Item.string_to_number('5.5') == 5
+
+def test___add__():
+    item = Item("iPhone 13", 120_000, 5)
+    assert item.__add__(item) == 10
