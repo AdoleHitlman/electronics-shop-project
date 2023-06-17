@@ -19,6 +19,7 @@ class Item:
         self.price = price
         self.quantity = quantity
         self.all.append(self)
+        super().__init__()
 
 
     def __add__(self, other):
