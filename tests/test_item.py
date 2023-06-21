@@ -66,3 +66,6 @@ def test_string_to_number():
 def test___add__():
     item = Item("iPhone 13", 120_000, 5)
     assert item.__add__(item) == 10
+
+def test_error():
+    assert Item.instantiate_from_csv() != "Файл item.csv поврежден" or Item.instantiate_from_csv() != "Отсутствует файл item.csv"

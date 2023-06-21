@@ -1,5 +1,6 @@
 import csv
 
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -21,7 +22,6 @@ class Item:
         self.all.append(self)
         super().__init__()
 
-
     def __add__(self, other):
         if isinstance(other, Item):
             return self.quantity + other.quantity
@@ -34,7 +34,6 @@ class Item:
 
     def __repr__(self):
         return f"{self},('{self.name}', {self.price}, {self.quantity})"
-
 
     """
     Магический метод __str__
@@ -82,10 +81,18 @@ class Item:
         Создание экземпляров класса Item из данных файла src/items.csv.
         """
         cls.all = []
-        with open('/home/hw/hw010623/electronics-shop-project/src/items.csv') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                item = cls(row['name'], float(row['price']), int(row['quantity']))
+        try:
+            with open('/home/hw/hw010623/electronics-shop-project/src/items.csv') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    item = cls(row['name'], float(row['price']), int(row['quantity']))
+                    # Проверяем, что все поля существуют
+                    if not all([item.name, item.price, item.quantity]):
+                        print("Файл item.csv поврежден")
+        except FileNotFoundError:
+            print("Отсутствует файл item.csv")
+        except KeyError:
+            print("Файл item.csv поврежден")
 
     @staticmethod
     def string_to_number(string) -> int:
